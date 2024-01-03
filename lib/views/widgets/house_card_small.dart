@@ -7,21 +7,25 @@ class HouseCardSmall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      //decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.r)),
+      height: 76.h,
       child: Row(
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child:
-                  Image.asset('lib/assets/home2.jpeg', width: 80, height: 76)),
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                'lib/assets/home2.jpeg',
+                width: 80.w,
+                height: 76.h,
+                fit: BoxFit.cover,
+              )),
           const SizedBox(width: 10),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Orchad House',
-                  style:
-                      TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500)),
+                  style: TextStyle(
+                      fontSize: 17.sp, fontWeight: FontWeight.w500)),
               Text('Rp. 2.500.000.000 / Year',
                   style: TextStyle(
                       fontSize: 12.83.sp, fontWeight: FontWeight.w400)),

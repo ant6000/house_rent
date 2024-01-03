@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: ListView(
             children: [
               Row(
@@ -21,25 +21,38 @@ class HomePage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Location',
-                        style: TextStyle(fontSize: 12.83.sp),
-                      ),
-                      const DropdownMenu(dropdownMenuEntries: [
-                        DropdownMenuEntry(value: 1, label: 'Dhaka'),
-                        DropdownMenuEntry(value: 1, label: 'Noakhali'),
-                        DropdownMenuEntry(value: 1, label: 'Comilla'),
-                        DropdownMenuEntry(value: 1, label: 'Noraili'),
-                        DropdownMenuEntry(value: 1, label: 'Lohagora'),
-                        DropdownMenuEntry(value: 1, label: 'Sylet'),
-                        DropdownMenuEntry(value: 1, label: 'Chottogram'),
-                      ])
+                      DropdownMenu(
+                          initialSelection: 2,
+                          width: 170.w,
+                          label: const Text('Location'),
+                          inputDecorationTheme: InputDecorationTheme(
+                              labelStyle: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 22.sp,
+                                fontWeight: FontWeight.w400,
+                              ),
+                              border: InputBorder.none),
+                          trailingIcon:
+                              Padding(
+                                padding: const EdgeInsets.only(top: 20),
+                                child: Image.asset('lib/assets/IC_Arrow down.png'),
+                              ),
+                          textStyle: TextStyle(fontSize: 21.38.sp),
+                          dropdownMenuEntries: const [
+                            DropdownMenuEntry(value: 1, label: 'Noakhali'),
+                            DropdownMenuEntry(value: 2, label: 'Dhaka'),
+                            DropdownMenuEntry(value: 1, label: 'Comilla'),
+                            DropdownMenuEntry(value: 1, label: 'Noraili'),
+                            DropdownMenuEntry(value: 1, label: 'Lohagora'),
+                            DropdownMenuEntry(value: 1, label: 'Sylet'),
+                            DropdownMenuEntry(value: 1, label: 'Chottogram'),
+                          ])
                     ],
                   ),
                   Image.asset('lib/assets/IC_Notification.png')
                 ],
               ),
-              SizedBox(height: 25.h),
+              SizedBox(height: 10.h),
               Row(
                 children: [
                   Expanded(
@@ -49,6 +62,7 @@ class HomePage extends StatelessWidget {
                           fillColor: Colors.black12.withOpacity(.05),
                           prefixIcon: Image.asset('lib/assets/IC_Search.png'),
                           border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(20)),
                           hintText: 'Search Address or near you'),
                     ),
@@ -57,7 +71,7 @@ class HomePage extends StatelessWidget {
                   Image.asset('lib/assets/filter_icon.png')
                 ],
               ),
-              SizedBox(height: 21.38.h),
+              SizedBox(height: 10.h),
               const Wrap(
                 alignment: WrapAlignment.spaceBetween,
                 direction: Axis.horizontal,
@@ -68,7 +82,7 @@ class HomePage extends StatelessWidget {
                   CustomButton(btnText: 'Hotel'),
                 ],
               ),
-              SizedBox(height: 34.21.h),
+              SizedBox(height: 10.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -84,27 +98,26 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 12.83.sp,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black),
+                        color: Colors.grey),
                   ),
                 ],
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 10.h),
               SizedBox(
                 height: 290.76.h,
                 child: ListView(
                   shrinkWrap: true,
-                  
                   scrollDirection: Axis.horizontal,
                   children: const [
                     HouseCardBig(),
-                    SizedBox(width: 25),
+                    SizedBox(width: 10),
                     HouseCardBig(),
-                    SizedBox(width: 25),
+                    SizedBox(width: 10),
                     HouseCardBig(),
                   ],
                 ),
               ),
-              SizedBox(height: 21.h),
+              SizedBox(height: 10.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -124,11 +137,11 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 21.h),
+              SizedBox(height: 10.h),
               const HouseCardSmall(),
-              const SizedBox(height: 13),
+              const SizedBox(height: 10),
               const HouseCardSmall(),
-              const SizedBox(height: 13),
+              const SizedBox(height: 10),
               const HouseCardSmall()
             ],
           ),
