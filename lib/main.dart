@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:house_rent/views/screens/login_page.dart';
 
+import 'views/screens/home_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,9 +17,14 @@ class MyApp extends StatelessWidget {
     return  ScreenUtilInit(
       designSize: const Size(360, 800),
       builder: (_, child) {
-        return const GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: LoginPage(),
+        return ScreenUtilInit(
+          designSize:const Size(360, 800),
+          builder: (_, child) {
+            return const GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              home: HomePage(),
+            );
+          }
         );
       },
     );
