@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:house_rent/views/screens/login_page.dart';
 
+import 'views/screens/details_page.dart';
 import 'views/screens/home_page.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
           builder: (_, child) {
             return const GetMaterialApp(
               debugShowCheckedModeBanner: false,
-              home: HomePage(),
+              home: DetailsPage(),
             );
           }
         );

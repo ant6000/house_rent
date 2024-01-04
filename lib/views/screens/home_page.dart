@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
                               border: InputBorder.none),
                           trailingIcon:
                               Padding(
-                                padding: const EdgeInsets.only(top: 20),
+                                padding: EdgeInsets.only(top: 20.h),
                                 child: Image.asset('lib/assets/IC_Arrow down.png'),
                               ),
                           textStyle: TextStyle(fontSize: 21.38.sp),
