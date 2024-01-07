@@ -4,11 +4,21 @@ import 'package:house_rent/views/widgets/custom_button.dart';
 import 'package:house_rent/views/widgets/house_card_big.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.w),
@@ -31,11 +41,10 @@ class HomePage extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                             ),
                             border: InputBorder.none),
-                        trailingIcon:
-                            Padding(
-                              padding: EdgeInsets.only(top: 20.h),
-                              child: Image.asset('lib/assets/IC_Arrow down.png'),
-                            ),
+                        trailingIcon: Padding(
+                          padding: EdgeInsets.only(top: 20.h),
+                          child: Image.asset('lib/assets/IC_Arrow down.png'),
+                        ),
                         textStyle: TextStyle(fontSize: 21.38.sp),
                         dropdownMenuEntries: const [
                           DropdownMenuEntry(value: 1, label: 'Noakhali'),
@@ -145,13 +154,22 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-        
-      //   items: [
-      //   BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home'),
-      //   BottomNavigationBarItem(icon: Icon(Icons.bookmark),label: 'Saved'),
-      //   BottomNavigationBarItem(icon: Icon(Icons.settings),label: 'Settings'),
-      // ]),
+      // bottomNavigationBar: GNav(
+      //     tabBorderRadius: 10.r,
+      //     curve: Curves.easeOutExpo,
+      //     tabMargin: const EdgeInsets.symmetric(horizontal: 10),
+      //     //duration: const Duration(milliseconds: 300), // tab animation duration
+      //     gap: 10,
+      //     color: Colors.grey[800],
+      //     activeColor: Colors.white,
+      //     iconSize: 24,
+      //     tabBackgroundColor: Colors.blue,
+      //     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      //     tabs: const [
+      //       GButton(icon: Icons.home, text: 'Home'),
+      //       GButton(icon: Icons.bookmark, text: 'Saved'),
+      //       GButton(icon: Icons.settings, text: 'Settings')
+      //     ]),
     );
   }
 }
