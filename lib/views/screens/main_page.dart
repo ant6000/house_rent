@@ -54,10 +54,10 @@ class _MainPageState extends State<MainPage> {
           iconSize: 24,
           tabBackgroundColor: Colors.blue,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          tabs: const [
-            GButton(icon: Icons.home, text: 'Home'),
-            GButton(icon: Icons.bookmark, text: 'Saved'),
-            GButton(icon: Icons.settings, text: 'Settings')
+          tabs:  [
+            GButton(icon: selected_index == 0 ? Icons.home : Icons.home_outlined, text: 'Home'),
+            GButton(icon: selected_index == 1 ? Icons.bookmark :Icons.bookmark_outline_outlined, text: 'Saved'),
+            GButton(icon: selected_index == 2 ? Icons.settings : Icons.settings_outlined, text: 'Settings')
           ]),
     );
   }
