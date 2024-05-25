@@ -7,7 +7,7 @@ class HouseCardBig extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 237.31.w,
+      width: 236.w,
       child: ClipRRect(borderRadius: BorderRadius.circular(20), child: Image.asset('lib/assets/home1.jpeg',fit: BoxFit.cover)),
     );
   }

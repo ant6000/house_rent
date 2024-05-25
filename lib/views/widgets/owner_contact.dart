@@ -18,13 +18,11 @@ class OwnerContact extends StatelessWidget {
                 'lib/assets/profile_pic1.png',
               )),
         ),
-        SizedBox(width: 10.w),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Garry Allen',
                 style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500)),
-            SizedBox(height: 5.h),
             Text('Owner',
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w400)),
           ],
