@@ -24,22 +24,27 @@ class HouseCardSmall extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text('Orchad House',
-                  style: TextStyle(
-                      fontSize: 17.sp, fontWeight: FontWeight.w500)),
-              Text('Rp. 2.500.000.000 / Year',
+                  style:
+                      TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500)),
+              Text('Tk. 25,000 / Mo',
                   style: TextStyle(
                       fontSize: 12.83.sp, fontWeight: FontWeight.w400)),
               Row(
                 children: [
                   Image.asset('lib/assets/IC_Bed.png'),
-                  SizedBox(width: 8.55.w),
-                  Text('6 Bedroom',
+                  SizedBox(width: 5.w),
+                  Text('6 Bed',
                       style: TextStyle(
                           fontSize: 12.83.sp, fontWeight: FontWeight.w400)),
-                  SizedBox(width: 20.w),
+                  SizedBox(width: 10.w),
                   Image.asset('lib/assets/IC_Bath.png'),
-                  SizedBox(width: 8.55.w),
-                  Text('4 Bathroom',
+                  SizedBox(width: 5.w),
+                  Text('4 Bath',
+                      style: TextStyle(
+                          fontSize: 12.83.sp, fontWeight: FontWeight.w400)),
+                   SizedBox(width: 5.w),
+                   Image.asset('lib/assets/IC_Bath.png'),
+                  Text('1 Kitc.',
                       style: TextStyle(
                           fontSize: 12.83.sp, fontWeight: FontWeight.w400)),
                 ],

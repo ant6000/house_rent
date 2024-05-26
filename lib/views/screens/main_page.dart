@@ -1,60 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:house_rent/views/screens/home_page.dart';
-import 'package:house_rent/views/screens/notification_page.dart';
-import 'package:house_rent/views/screens/saved_page.dart';
-import 'package:house_rent/views/screens/settings_page.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   const MainPage({super.key});
-
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  final _pages = [
-    const HomePage(),
-    const SavedPage(),
-    const NotificationPage(),
-    const SettingsPage(),
-  ];
-  final PageController pageController = PageController();
-  int selectedIndex = 0;
-  ontap(int index) {
-    setState(() {
-      selectedIndex = index;
-      pageController.jumpToPage(selectedIndex);
-    });
-  }
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: PageView(
-          controller: pageController,
-          onPageChanged: ontap,
-          children: _pages,
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedIndex,
-        onTap: ontap,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: 'Saved'),
-          BottomNavigationBarItem(icon: Icon(Icons.notification_add), label: 'Notifications'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      appBar: AppBar(
+        actions: [
+          _buildLocationDropDown(),
         ],
       ),
+      drawer: _buildDrawer(),
+      body: const SafeArea(
+        child: HomePage(),
+      ),
+    );
+  }
+
+  Widget _buildDrawer() {
+    return SafeArea(
+        child: Drawer(
+      width: 200,
+      backgroundColor: Colors.blue.withOpacity(.8),
+      child: const Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ListTile(
+            title: Text('Home'),
+            leading: Icon(Icons.home),
+          ),
+          ListTile(title: Text('Profile'), leading: Icon(Icons.person)),
+          ListTile(title: Text('Saved'), leading: Icon(Icons.bookmark)),
+          ListTile(
+              title: Text('Notification'),
+              leading: Icon(Icons.notification_add)),
+          ListTile(title: Text('Settings'), leading: Icon(Icons.settings)),
+          ListTile(title: Text('Help'), leading: Icon(Icons.help)),
+          ListTile(title: Text('Logout'), leading: Icon(Icons.logout)),
+        ],
+      ),
+    ));
+  }
+
+  Widget _buildLocationDropDown() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        DropdownMenu(
+            initialSelection: 2,
+            width: 130.w,
+            label: const Text('Location'),
+            inputDecorationTheme: InputDecorationTheme(
+                labelStyle: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12.sp,
+                  //fontWeight: FontWeight.w400,
+                ),
+                border: InputBorder.none),
+            trailingIcon: Padding(
+              padding: EdgeInsets.only(top: 20.h),
+              child: Image.asset('lib/assets/IC_Arrow down.png'),
+            ),
+            textStyle: TextStyle(fontSize: 10.sp),
+            dropdownMenuEntries: const [
+              DropdownMenuEntry(value: 1, label: 'Noakhali'),
+              DropdownMenuEntry(value: 2, label: 'Dhaka'),
+              DropdownMenuEntry(value: 1, label: 'Comilla'),
+              DropdownMenuEntry(value: 1, label: 'Sylet'),
+              DropdownMenuEntry(value: 1, label: 'Chottogram'),
+            ])
+      ],
     );
   }
 }

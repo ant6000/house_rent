@@ -26,8 +26,6 @@ class _HomePageState extends State<HomePage>
       child: ListView(
         shrinkWrap: true,
         children: [
-          _buildLocationDropDown(),
-          SizedBox(height: 10.h),
           _buildSearchField(),
           SizedBox(height: 10.h),
           _buildCategoryButtton(),
@@ -44,73 +42,26 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Row _buildLocationDropDown() {
+  Row _buildSearchField() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            DropdownMenu(
-                initialSelection: 2,
-                width: 170.w,
-                label: const Text('Location'),
-                inputDecorationTheme: InputDecorationTheme(
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 22.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    border: InputBorder.none),
-                trailingIcon: Padding(
-                  padding: EdgeInsets.only(top: 20.h),
-                  child: Image.asset('lib/assets/IC_Arrow down.png'),
-                ),
-                textStyle: TextStyle(fontSize: 21.38.sp),
-                dropdownMenuEntries: const [
-                  DropdownMenuEntry(value: 1, label: 'Noakhali'),
-                  DropdownMenuEntry(value: 2, label: 'Dhaka'),
-                  DropdownMenuEntry(value: 1, label: 'Comilla'),
-                  DropdownMenuEntry(value: 1, label: 'Sylet'),
-                  DropdownMenuEntry(value: 1, label: 'Chottogram'),
-                ])
-          ],
+        Expanded(
+          child: SizedBox(
+            height: 54,
+            child: TextField(
+              decoration: InputDecoration(
+                  filled: true,
+                  prefixIcon: Image.asset('lib/assets/IC_Search.png'),
+                  border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(20)),
+                  hintText: 'Search Address or near you'),
+            ),
+          ),
         ),
-        const Icon(Icons.settings)
+        SizedBox(width: 8.55.w),
+        Image.asset('lib/assets/filter_icon.png')
       ],
-    );
-  }
-
-  Row _buildSectionTitle(String title, String str) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
-        ),
-        Text(
-          str,
-          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildHorizontaList(int itemCount, Widget item) {
-    return SizedBox(
-      height: 300,
-      child: ListView.builder(
-        itemCount: itemCount,
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: item,
-          );
-        },
-      ),
     );
   }
 
@@ -134,23 +85,36 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-Row _buildSearchField() {
+Row _buildSectionTitle(String title, String str) {
   return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Expanded(
-        child: TextField(
-          decoration: InputDecoration(
-              filled: true,
-              prefixIcon: Image.asset('lib/assets/IC_Search.png'),
-              border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(20)),
-              hintText: 'Search Address or near you'),
-        ),
+      Text(
+        title,
+        style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
       ),
-      SizedBox(width: 8.55.w),
-      Image.asset('lib/assets/filter_icon.png')
+      Text(
+        str,
+        style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+      ),
     ],
+  );
+}
+
+Widget _buildHorizontaList(int itemCount, Widget item) {
+  return SizedBox(
+    height: 250,
+    child: ListView.builder(
+      itemCount: itemCount,
+      scrollDirection: Axis.horizontal,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: item,
+        );
+      },
+    ),
   );
 }
 
