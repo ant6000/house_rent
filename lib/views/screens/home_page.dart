@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:house_rent/views/screens/see_more.dart';
 import 'package:house_rent/views/widgets/catagory_button.dart';
 import 'package:house_rent/views/widgets/house_card_big.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
@@ -30,11 +32,11 @@ class _HomePageState extends State<HomePage>
           SizedBox(height: 10.h),
           _buildCategoryButtton(),
           SizedBox(height: 10.h),
-          _buildSectionTitle('Near From you', 'See more'),
+          _buildSectionTitle('Near From you', 'See more','grid'),
           SizedBox(height: 10.h),
           _buildHorizontaList(5, const HouseCardBig()),
           SizedBox(height: 10.h),
-          _buildSectionTitle('Best for you', 'See more'),
+          _buildSectionTitle('Best for you', 'See more','list'),
           SizedBox(height: 10.h),
           _buildVerticleList(5, const HouseCardSmall())
         ],
@@ -85,7 +87,7 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-Row _buildSectionTitle(String title, String str) {
+Row _buildSectionTitle(String title, String str, String type) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -93,9 +95,14 @@ Row _buildSectionTitle(String title, String str) {
         title,
         style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500),
       ),
-      Text(
-        str,
-        style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+      InkWell(
+        onTap: () {
+          Get.to(()=>SeeMorePage(type: type));
+        },
+        child: Text(
+          str,
+          style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
+        ),
       ),
     ],
   );

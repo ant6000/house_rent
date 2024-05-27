@@ -24,16 +24,18 @@ class MainPage extends StatelessWidget {
     return SafeArea(
         child: Drawer(
       width: 200,
-      backgroundColor: Colors.blue.withOpacity(.8),
+      backgroundColor: Colors.blue.withOpacity(.9),
       child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ListTile(
+            tileColor: Colors.white,
             title: Text('Home'),
             leading: Icon(Icons.home),
           ),
           ListTile(title: Text('Profile'), leading: Icon(Icons.person)),
           ListTile(title: Text('Saved'), leading: Icon(Icons.bookmark)),
+          ListTile(title: Text('Booked'), leading: Icon(Icons.contacts)),
           ListTile(
               title: Text('Notification'),
               leading: Icon(Icons.notification_add)),

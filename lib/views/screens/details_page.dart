@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:house_rent/views/widgets/catagory_button.dart';
 import 'package:house_rent/views/widgets/owner_contact.dart';
 
@@ -20,8 +21,8 @@ class DetailsPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
                     'lib/assets/home1.jpeg',
-                    height: 341.h,
-                    width: 358.w,
+                    height: 340.h,
+                    width: 360.w,
                     fit: BoxFit.cover,
                   )),
               Padding(
@@ -29,10 +30,15 @@ class DetailsPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Colors.black.withOpacity(0.2),
-                      child: Image.asset('lib/assets/IC_Back.png'),
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: CircleAvatar(
+                        radius: 20,
+                        backgroundColor: Colors.black.withOpacity(0.2),
+                        child: Image.asset('lib/assets/IC_Back.png'),
+                      ),
                     ),
                     CircleAvatar(
                       radius: 20,
@@ -69,8 +75,8 @@ class DetailsPage extends StatelessWidget {
                           SizedBox(width: 8.55.w),
                           Text('6 Bedroom',
                               style: TextStyle(
-                                  fontSize: 12.83.sp,
-                                  color: Colors.white,
+                                  fontSize: 12.sp,
+                                  //color: Colors.white,
                                   fontWeight: FontWeight.w400)),
                           SizedBox(width: 20.w),
                           Image.asset('lib/assets/IC_Bath.png',
@@ -78,8 +84,8 @@ class DetailsPage extends StatelessWidget {
                           SizedBox(width: 8.55.w),
                           Text('4 Bathroom',
                               style: TextStyle(
-                                  fontSize: 12.83.sp,
-                                  color: Colors.white,
+                                  fontSize: 12.sp,
+                                  //color: Colors.white,
                                   fontWeight: FontWeight.w400)),
                         ],
                       )
@@ -171,7 +177,7 @@ class DetailsPage extends StatelessWidget {
               ),
               CatagoryButton(
                 btnText: 'Rent Now',
-                index: -1,
+                index: 0,
               ),
             ],
           ),
