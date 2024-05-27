@@ -14,9 +14,7 @@ class MainPage extends StatelessWidget {
         ],
       ),
       drawer: _buildDrawer(),
-      body: const SafeArea(
-        child: HomePage(),
-      ),
+      body: const HomePage(),
     );
   }
 

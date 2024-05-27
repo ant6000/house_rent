@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:house_rent/views/screens/see_more.dart';
 import 'package:house_rent/views/widgets/catagory_button.dart';
-import 'package:house_rent/views/widgets/house_card_big.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
+import 'package:parallax_cards/parallax_cards.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +16,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   final List<String> list = ['Home', 'Apartment', 'Vila', 'Hostel', 'Shop'];
-
+  final List<String> imageList = [
+    'lib/assets/home1.jpeg',
+    'lib/assets/home1.jpeg',
+    'lib/assets/home1.jpeg',
+  ];
   @override
   bool get wantKeepAlive => true;
 
@@ -32,11 +36,11 @@ class _HomePageState extends State<HomePage>
           SizedBox(height: 10.h),
           _buildCategoryButtton(),
           SizedBox(height: 10.h),
-          _buildSectionTitle('Near From you', 'See more','grid'),
+          _buildSectionTitle('Near From you', 'See more', 'grid'),
           SizedBox(height: 10.h),
-          _buildHorizontaList(5, const HouseCardBig()),
+          _buildHorizontaList(imageList),
           SizedBox(height: 10.h),
-          _buildSectionTitle('Best for you', 'See more','list'),
+          _buildSectionTitle('Best for you', 'See more', 'list'),
           SizedBox(height: 10.h),
           _buildVerticleList(5, const HouseCardSmall())
         ],
@@ -97,7 +101,7 @@ Row _buildSectionTitle(String title, String str, String type) {
       ),
       InkWell(
         onTap: () {
-          Get.to(()=>SeeMorePage(type: type));
+          Get.to(() => SeeMorePage(type: type));
         },
         child: Text(
           str,
@@ -108,26 +112,38 @@ Row _buildSectionTitle(String title, String str, String type) {
   );
 }
 
-Widget _buildHorizontaList(int itemCount, Widget item) {
-  return SizedBox(
-    height: 250,
-    child: ListView.builder(
-      itemCount: itemCount,
-      scrollDirection: Axis.horizontal,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(right: 10),
-          child: item,
-        );
-      },
-    ),
+Widget _buildHorizontaList(List<String> imageList) {
+  return ParallaxCards(
+    height: 300,
+    width: 230,
+    margin: const EdgeInsets.all(10),
+    imagesList: imageList,
+    scrollDirection: Axis.horizontal,
+    onTap: (index) {
+      Get.toNamed('/detailsPage');
+    },
   );
 }
+// Widget _buildHorizontaList(int itemCount, Widget item) {
+//   return SizedBox(
+//     height: 250,
+//     child: ListView.builder(
+//       itemCount: itemCount,
+//       scrollDirection: Axis.horizontal,
+//       shrinkWrap: true,
+//       itemBuilder: (context, index) {
+//         return Padding(
+//           padding: const EdgeInsets.only(right: 10),
+//           child: item,
+//         );
+//       },
+//     ),
+//   );
+// }
 
 Widget _buildVerticleList(int itemCount, Widget item) {
   return SizedBox(
-    height: 500,
+    height: 1000,
     child: ListView.builder(
       itemBuilder: (context, index) {
         return Padding(
@@ -135,7 +151,7 @@ Widget _buildVerticleList(int itemCount, Widget item) {
           child: item,
         );
       },
-      itemCount: 5,
+      itemCount: 10,
       scrollDirection: Axis.vertical,
       physics: const NeverScrollableScrollPhysics(),
     ),
