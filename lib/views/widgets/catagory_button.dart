@@ -5,7 +5,7 @@ import 'package:house_rent/controller/category_controller.dart';
 
 class CatagoryButton extends StatelessWidget {
   final String btnText;
-  int index;
+  final int index;
   CatagoryButton({required this.btnText, required this.index, super.key});
   CategoryController controller = Get.put(CategoryController());
   @override

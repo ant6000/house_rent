@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:house_rent/controller/category_controller.dart';
+import 'package:house_rent/controller/nearest_houe_controller.dart';
 import 'package:house_rent/views/screens/see_more.dart';
 import 'package:house_rent/views/widgets/catagory_button.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
@@ -15,12 +17,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-  final List<String> list = ['Home', 'Apartment', 'Vila', 'Hostel', 'Shop'];
+  final List<String> textlist = ['Home', 'Apartment', 'Vila', 'Hostel', 'Shop'];
   final List<String> imageList = [
     'lib/assets/home1.jpeg',
     'lib/assets/home1.jpeg',
     'lib/assets/home1.jpeg',
+    'lib/assets/home1.jpeg',
+    'lib/assets/home1.jpeg',
   ];
+
+  final categoryController = Get.find<CategoryController>();
+  final nearestHoueController = Get.find<NearestHoueController>();
   @override
   bool get wantKeepAlive => true;
 
@@ -38,7 +45,7 @@ class _HomePageState extends State<HomePage>
           SizedBox(height: 10.h),
           _buildSectionTitle('Near From you', 'See more', 'grid'),
           SizedBox(height: 10.h),
-          _buildHorizontaList(imageList),
+          _buildHorizontaList(imageList, textlist),
           SizedBox(height: 10.h),
           _buildSectionTitle('Best for you', 'See more', 'list'),
           SizedBox(height: 10.h),
@@ -73,19 +80,21 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildCategoryButtton() {
     return SizedBox(
-      height: 50,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 5),
-            child: CatagoryButton(
-              btnText: list[index],
-              index: index,
-            ),
-          );
-        },
+      height: 40.h,
+      child: Obx(
+        () => ListView.builder(
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: CatagoryButton(
+                btnText: categoryController.categoryList[index],
+                index: index,
+              ),
+            );
+          },
+          itemCount: categoryController.categoryList.length,
+          scrollDirection: Axis.horizontal,
+        ),
       ),
     );
   }
@@ -112,48 +121,53 @@ Row _buildSectionTitle(String title, String str, String type) {
   );
 }
 
-Widget _buildHorizontaList(List<String> imageList) {
-  return ParallaxCards(
-    height: 300,
-    width: 230,
-    margin: const EdgeInsets.all(10),
-    imagesList: imageList,
-    scrollDirection: Axis.horizontal,
-    onTap: (index) {
-      Get.toNamed('/detailsPage');
-    },
+Widget _buildHorizontaList(List<String> imageList, List<String> text) {
+  return Stack(
+    children: [
+       
+        ParallaxCards(
+          height: 300,
+          width: 230,
+          margin: const EdgeInsets.all(10),
+          imagesList: imageList,
+          scrollDirection: Axis.horizontal,
+          onTap: (index) {
+            Get.toNamed('/detailsPage');
+          },
+          overlays: [
+            for (var title in text)
+              Positioned(
+                bottom: 5,
+                left: 5,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(title,
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w500)),
+                    const Text('TatiBazar, Old-Dhaka',
+                        style: TextStyle(fontSize: 12)),
+                  ],
+                ),
+              )
+          ],
+        ),
+      
+    ],
   );
 }
-// Widget _buildHorizontaList(int itemCount, Widget item) {
-//   return SizedBox(
-//     height: 250,
-//     child: ListView.builder(
-//       itemCount: itemCount,
-//       scrollDirection: Axis.horizontal,
-//       shrinkWrap: true,
-//       itemBuilder: (context, index) {
-//         return Padding(
-//           padding: const EdgeInsets.only(right: 10),
-//           child: item,
-//         );
-//       },
-//     ),
-//   );
-// }
 
 Widget _buildVerticleList(int itemCount, Widget item) {
-  return SizedBox(
-    height: 1000,
-    child: ListView.builder(
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: item,
-        );
-      },
-      itemCount: 10,
-      scrollDirection: Axis.vertical,
-      physics: const NeverScrollableScrollPhysics(),
-    ),
+  return ListView.builder(
+    itemBuilder: (context, index) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: item,
+      );
+    },
+    itemCount: 10,
+    shrinkWrap: true,
+    scrollDirection: Axis.vertical,
+    physics: const NeverScrollableScrollPhysics(),
   );
 }
