@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:house_rent/data/model/custom_model.dart';
 import 'package:house_rent/views/widgets/owner_contact.dart';
 
 class DetailsPage extends StatelessWidget {
-  const DetailsPage({super.key});
+  final CustomModel houseModel;
+  const DetailsPage({required this.houseModel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,13 +58,13 @@ class DetailsPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Dreamsville House',
+                        Text(houseModel.attributes!.houseTitle.toString(),
                             style: TextStyle(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white)),
                         SizedBox(height: 8.h),
-                        Text('Sultan Iskandar Muda, Jakarta selatan',
+                        Text(houseModel.attributes!.location.toString(),
                             style: TextStyle(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w400,
@@ -73,7 +75,7 @@ class DetailsPage extends StatelessWidget {
                             Image.asset('lib/assets/IC_Bed.png',
                                 color: Colors.white),
                             SizedBox(width: 8.w),
-                            Text('6 Bedroom',
+                            Text('${houseModel.attributes!.bed} Bed',
                                 style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400)),
@@ -81,7 +83,12 @@ class DetailsPage extends StatelessWidget {
                             Image.asset('lib/assets/IC_Bath.png',
                                 color: Colors.white),
                             SizedBox(width: 8.w),
-                            Text('4 Bathroom',
+                            Text('${houseModel.attributes!.bed} Bath',
+                                style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400)),
+                            SizedBox(width: 8.w),
+                            Text('${houseModel.attributes!.kitchen} Kitch.',
                                 style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400)),
@@ -168,14 +175,16 @@ class DetailsPage extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 12.sp, fontWeight: FontWeight.w400)),
                     SizedBox(height: 5.h),
-                    Text('10000 / Mo',
+                    Text('${houseModel.attributes!.price} Tk / Mo',
                         style: TextStyle(
                             fontSize: 17.sp, fontWeight: FontWeight.w500)),
                   ],
                 ),
-                ElevatedButton(style: TextButton.styleFrom(elevation: 1,backgroundColor: Colors.blue), onPressed: () {
-                  
-                }, child: const Text('Rent Now'))
+                ElevatedButton(
+                    style: TextButton.styleFrom(
+                        elevation: 1, backgroundColor: Colors.blue),
+                    onPressed: () {},
+                    child: const Text('Rent Now'))
               ],
             ),
           ],

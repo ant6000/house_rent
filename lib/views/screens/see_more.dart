@@ -28,9 +28,9 @@ class SeeMorePage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: type == 'grid'
               ? GridView.builder(
-                itemCount: 10,
-                shrinkWrap: true,
-                scrollDirection: Axis.vertical,
+                  itemCount: 10,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: .8,
@@ -41,13 +41,14 @@ class SeeMorePage extends StatelessWidget {
                   },
                 )
               : ListView.builder(
-                  itemCount: 10,
+                  itemCount: best4uController.houseList.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
-                      child: HouseCardSmall(houseMOdel: best4uController.houseList[0],),
+                      child: HouseCardSmall(
+                          houseModel: best4uController.houseList[index]),
                     );
                   },
                 )),

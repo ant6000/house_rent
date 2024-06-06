@@ -6,6 +6,7 @@ import 'package:house_rent/data/repository/best_for_you.dart';
 class BestForYouController extends GetxController {
   RxList<CustomModel> houseList = RxList<CustomModel>();
   RxList<String> images = RxList<String>();
+  int index = -1;
 
   @override
   void onInit() {

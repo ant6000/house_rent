@@ -5,8 +5,8 @@ import 'package:house_rent/controller/baner_controller.dart';
 import 'package:house_rent/controller/best_for_you_controller.dart';
 import 'package:house_rent/controller/category_controller.dart';
 import 'package:house_rent/controller/nearest_houe_controller.dart';
-import 'package:house_rent/core/constant/const.dart';
 import 'package:house_rent/data/model/custom_model.dart';
+import 'package:house_rent/views/screens/details_page.dart';
 import 'package:house_rent/views/screens/see_more.dart';
 import 'package:house_rent/views/widgets/catagory_button.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
@@ -130,9 +130,9 @@ Row _buildSectionTitle(String title, String str, String type) {
   );
 }
 
-Widget _buildHorizontaList(List<String> imageList, RxList<CustomModel>list) {
+Widget _buildHorizontaList(List<String> imageList, RxList<CustomModel>houselist) {
   return Obx(
-    () => list.isEmpty
+    () => houselist.isEmpty
         ? const CircularProgressIndicator()
         : Stack(
             children: [
@@ -143,10 +143,10 @@ Widget _buildHorizontaList(List<String> imageList, RxList<CustomModel>list) {
                 imagesList: imageList,
                 scrollDirection: Axis.horizontal,
                 onTap: (index) {
-                  Get.toNamed('/detailsPage');
+                  Get.to(()=>DetailsPage(houseModel:houselist[index]));
                 },
                 overlays: [
-                  for (var title in list)
+                  for (var title in houselist)
                     Positioned(
                       bottom: 5,
                       left: 5,
@@ -174,7 +174,7 @@ Widget _buildVerticleList(BestForYouController b4uController) {
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 10),
-          child: HouseCardSmall(houseMOdel: b4uController.houseList[index]),
+          child: HouseCardSmall(houseModel: b4uController.houseList[index]),
         );
       },
       itemCount: b4uController.houseList.length,
