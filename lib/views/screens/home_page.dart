@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:house_rent/controller/baner_controller.dart';
+import 'package:house_rent/controller/best_for_you_controller.dart';
 import 'package:house_rent/controller/category_controller.dart';
 import 'package:house_rent/controller/nearest_houe_controller.dart';
+import 'package:house_rent/core/constant/const.dart';
+import 'package:house_rent/data/model/custom_model.dart';
 import 'package:house_rent/views/screens/see_more.dart';
 import 'package:house_rent/views/widgets/catagory_button.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
@@ -28,6 +32,9 @@ class _HomePageState extends State<HomePage>
 
   final categoryController = Get.find<CategoryController>();
   final nearestHoueController = Get.find<NearestHoueController>();
+  final best4uController = Get.find<BestForYouController>();
+  final bannerController = Get.find<BanerController>();
+
   @override
   bool get wantKeepAlive => true;
 
@@ -45,15 +52,17 @@ class _HomePageState extends State<HomePage>
           SizedBox(height: 10.h),
           _buildSectionTitle('Near From you', 'See more', 'grid'),
           SizedBox(height: 10.h),
-          _buildHorizontaList(imageList, textlist),
+          _buildHorizontaList(nearestHoueController.images,nearestHoueController.houseList),
           SizedBox(height: 10.h),
           _buildSectionTitle('Best for you', 'See more', 'list'),
           SizedBox(height: 10.h),
-          _buildVerticleList(5, const HouseCardSmall())
+          _buildVerticleList(best4uController),
+          _buildBannerList(bannerController)
         ],
       ),
     );
   }
+
 
   Row _buildSearchField() {
     return Row(
@@ -121,53 +130,86 @@ Row _buildSectionTitle(String title, String str, String type) {
   );
 }
 
-Widget _buildHorizontaList(List<String> imageList, List<String> text) {
-  return Stack(
-    children: [
-       
-        ParallaxCards(
-          height: 300,
-          width: 230,
-          margin: const EdgeInsets.all(10),
-          imagesList: imageList,
-          scrollDirection: Axis.horizontal,
-          onTap: (index) {
-            Get.toNamed('/detailsPage');
-          },
-          overlays: [
-            for (var title in text)
-              Positioned(
-                bottom: 5,
-                left: 5,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title,
-                        style: const TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500)),
-                    const Text('TatiBazar, Old-Dhaka',
-                        style: TextStyle(fontSize: 12)),
-                  ],
-                ),
-              )
-          ],
-        ),
-      
-    ],
+Widget _buildHorizontaList(List<String> imageList, RxList<CustomModel>list) {
+  return Obx(
+    () => list.isEmpty
+        ? const CircularProgressIndicator()
+        : Stack(
+            children: [
+              ParallaxCards(
+                height: 300,
+                width: 230,
+                margin: const EdgeInsets.all(10),
+                imagesList: imageList,
+                scrollDirection: Axis.horizontal,
+                onTap: (index) {
+                  Get.toNamed('/detailsPage');
+                },
+                overlays: [
+                  for (var title in list)
+                    Positioned(
+                      bottom: 5,
+                      left: 5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(title.attributes!.houseTitle ?? 'Default',
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w500)),
+                          Text(title.attributes!.location ?? 'Default',
+                              style: const TextStyle(fontSize: 12)),
+                        ],
+                      ),
+                    )
+                ],
+              ),
+            ],
+          ),
   );
 }
 
-Widget _buildVerticleList(int itemCount, Widget item) {
-  return ListView.builder(
-    itemBuilder: (context, index) {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: item,
-      );
-    },
-    itemCount: 10,
-    shrinkWrap: true,
-    scrollDirection: Axis.vertical,
-    physics: const NeverScrollableScrollPhysics(),
+Widget _buildVerticleList(BestForYouController b4uController) {
+  return Obx(() => 
+     ListView.builder(
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: HouseCardSmall(houseMOdel: b4uController.houseList[index]),
+        );
+      },
+      itemCount: b4uController.houseList.length,
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      physics: const NeverScrollableScrollPhysics(),
+    ),
   );
 }
+
+Obx _buildBannerList(BanerController bannerController) {
+    return Obx(
+          () {
+            return ListView.builder(
+              itemCount: bannerController.bannerList.length,
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              physics:const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    width: double.infinity,
+                    height: 200,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      child: Image.network(bannerController.bannerList[index],fit: BoxFit.cover,),),
+                  ),
+                );
+              },
+            );
+          },
+        );
+  }

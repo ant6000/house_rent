@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:house_rent/controller/best_for_you_controller.dart';
 import 'package:house_rent/views/widgets/house_card_big.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
-import 'package:parallax_cards/parallax_cards.dart';
 
 class SeeMorePage extends StatelessWidget {
   final String type;
   SeeMorePage({super.key, required this.type});
-
+  final best4uController = Get.find<BestForYouController>();
   final List<String> imageList = [
     'lib/assets/home1.jpeg',
     'lib/assets/home1.jpeg',
@@ -36,7 +37,7 @@ class SeeMorePage extends StatelessWidget {
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 6),
                   itemBuilder: (context, index) {
-                    return HouseCardBig();
+                    return const HouseCardBig();
                   },
                 )
               : ListView.builder(
@@ -44,9 +45,9 @@ class SeeMorePage extends StatelessWidget {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.only(bottom: 10),
-                      child: HouseCardSmall(),
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: HouseCardSmall(houseMOdel: best4uController.houseList[0],),
                     );
                   },
                 )),

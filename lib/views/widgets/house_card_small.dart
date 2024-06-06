@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:house_rent/data/model/custom_model.dart';
 
 class HouseCardSmall extends StatelessWidget {
-  const HouseCardSmall({super.key});
+  final CustomModel houseMOdel;
+  const HouseCardSmall({required this.houseMOdel, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,28 +25,28 @@ class HouseCardSmall extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Orchad House',
+              Text(houseMOdel.attributes?.houseTitle?? 'Default',
                   style:
                       TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500)),
-              Text('Tk. 25,000 / Mo',
+              Text(houseMOdel.attributes?.price.toString() ?? '0',
                   style: TextStyle(
                       fontSize: 12.83.sp, fontWeight: FontWeight.w400)),
               Row(
                 children: [
                   Image.asset('lib/assets/IC_Bed.png'),
                   SizedBox(width: 5.w),
-                  Text('6 Bed',
+                  Text('${houseMOdel.attributes?.bed} Bed',
                       style: TextStyle(
                           fontSize: 12.83.sp, fontWeight: FontWeight.w400)),
                   SizedBox(width: 10.w),
                   Image.asset('lib/assets/IC_Bath.png'),
                   SizedBox(width: 5.w),
-                  Text('4 Bath',
+                  Text('${houseMOdel.attributes?.bath} Bath',
                       style: TextStyle(
                           fontSize: 12.83.sp, fontWeight: FontWeight.w400)),
-                   SizedBox(width: 5.w),
-                   Image.asset('lib/assets/IC_Bath.png'),
-                  Text('1 Kitc.',
+                  SizedBox(width: 5.w),
+                  Image.asset('lib/assets/IC_Bath.png'),
+                  Text('${houseMOdel.attributes?.kitchen} Kitc.',
                       style: TextStyle(
                           fontSize: 12.83.sp, fontWeight: FontWeight.w400)),
                 ],
