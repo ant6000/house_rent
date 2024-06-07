@@ -88,6 +88,8 @@ class DetailsPage extends StatelessWidget {
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400)),
                             SizedBox(width: 8.w),
+                            const Icon(Icons.kitchen,size: 18),
+                            SizedBox(width: 8.w),
                             Text('${houseModel.attributes!.kitchen} Kitch.',
                                 style: TextStyle(
                                     fontSize: 12.sp,

@@ -3,8 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:house_rent/controller/best_for_you_controller.dart';
 import 'package:house_rent/controller/nearest_house_controller.dart';
-import 'package:house_rent/core/constant/const.dart';
-import 'package:house_rent/views/screens/home_page.dart';
 import 'package:house_rent/views/widgets/house_card_big.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
 
@@ -13,18 +11,7 @@ class SeeMorePage extends StatelessWidget {
   SeeMorePage({super.key, required this.type});
   final nearestController = Get.find<NearestHoueController>();
   final best4uController = Get.find<BestForYouController>();
-  final List<String> imageList = [
-    'lib/assets/home1.jpeg',
-    'lib/assets/home1.jpeg',
-    'lib/assets/home1.jpeg',
-    'lib/assets/home1.jpeg',
-    'lib/assets/home1.jpeg',
-    'lib/assets/home1.jpeg',
-    'lib/assets/home1.jpeg',
-    'lib/assets/home1.jpeg',
-    'lib/assets/home1.jpeg',
-    'lib/assets/home1.jpeg',
-  ];
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

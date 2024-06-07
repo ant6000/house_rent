@@ -24,7 +24,7 @@ class BestForYouController extends GetxController {
         houseList.add(CustomModel.fromJson(house));
         //link = house['attributes']['Images']['data'] as List;
       }
-      print(houseList);
+      //print(houseList);
       // for (var element in link) {
       //   var urlList = ImageAttributes.fromJson(element['attributes']);
       //   print(urlList.url);

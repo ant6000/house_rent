@@ -16,16 +16,16 @@ class NearestHoueController extends GetxController {
   void getNearestHouses() async {
     var result = await GetnearestsHouse.getHouses();
     dynamic response = jsonDecode(result.body);
-    late List link;
     if (response['data'] != null) {
       var houses = response['data'] as List;
       for (var house in houses) {
         houseList.add(CustomModel.fromJson(house));
-        link = house['attributes']['Images']['data'] as List;
-      }
-      for (var element in link) {
-        var urlList = ImageAttributes.fromJson(element['attributes']);
-        images.add('http://192.168.185.124:1337${urlList.url}');
+        var link = house['attributes']['Images']['data'];
+        for (var url in link) {
+          String imageUrl = url['attributes']['url'];
+          images.add('http://192.168.185.124:1337$imageUrl');
+          break;
+        }
       }
     }
   }
