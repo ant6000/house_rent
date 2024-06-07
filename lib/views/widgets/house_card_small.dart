@@ -19,8 +19,7 @@ class HouseCardSmall extends StatelessWidget {
           children: [
             ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  'lib/assets/home2.jpeg',
+                child: Image.network('http://192.168.185.124:1337${houseModel.attributes?.images?.data?[0].attributes?.url}',
                   width: 80.w,
                   height: 76.h,
                   fit: BoxFit.cover,

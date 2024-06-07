@@ -10,6 +10,10 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(
+      houseModel.attributes?.images?.data?[0].attributes?.url
+                              .toString(),
+    );
     return Scaffold(
         body: SafeArea(
       child: Padding(
@@ -20,8 +24,7 @@ class DetailsPage extends StatelessWidget {
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      'lib/assets/home1.jpeg',
+                    child: Image.network('http://192.168.185.124:1337${houseModel.attributes?.images?.data?[0].attributes?.url}',
                       height: 340.h,
                       width: 360.w,
                       fit: BoxFit.cover,
@@ -88,7 +91,7 @@ class DetailsPage extends StatelessWidget {
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w400)),
                             SizedBox(width: 8.w),
-                            const Icon(Icons.kitchen,size: 18),
+                            const Icon(Icons.kitchen, size: 18),
                             SizedBox(width: 8.w),
                             Text('${houseModel.attributes!.kitchen} Kitch.',
                                 style: TextStyle(

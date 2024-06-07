@@ -1,3 +1,4 @@
+
 class CustomModel {
   int? id;
   Attributes? attributes;
@@ -20,6 +21,7 @@ class Attributes {
   int? bed;
   int? bath;
   int? kitchen;
+  Images? images;
   Attributes(
       {this.houseTitle,
       this.ownerPhone,
@@ -28,7 +30,8 @@ class Attributes {
       this.bed,
       this.kitchen,
       this.location,
-      this.price});
+      this.price,
+      this.images});
   factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
       houseTitle: json['HouseTitle'],
       ownerPhone: json['OwnerPhone'],
@@ -37,71 +40,30 @@ class Attributes {
       price: json['Price'],
       bed: json['Bed'],
       bath: json['Bath'],
-      kitchen: json['Kitchen']);
+      kitchen: json['Kitchen'],
+      images: Images.fromJson(json['Images']));
 }
-
 
 
 class Images {
-  ImageAttributes? imageAttributes;
-  Images({this.imageAttributes});
-  factory Images.fromJson(Map<String, dynamic>json)=>Images(imageAttributes: ImageAttributes.fromJson(json['attributes']));
+  List<ImagesData>? data;
+  Images({this.data});
+  factory Images.fromJson(Map<String, dynamic> json) => Images(
+      data: List<ImagesData>.from(
+          json['data'].map((x) => ImagesData.fromjson(x))));
 }
 
-class ImageAttributes {
+class ImagesData {
+  int? id;
+  ImageAttribute? attributes;
+  ImagesData({this.id, this.attributes});
+  factory ImagesData.fromjson(Map<String, dynamic> json) => ImagesData(
+      id: json['id'], attributes: ImageAttribute.fomjson(json['attributes']));
+}
+
+class ImageAttribute {
   String? url;
-  ImageAttributes({required this.url});
-  factory ImageAttributes.fromJson(Map<String, dynamic> json) =>
-      ImageAttributes(url: json['url']);
+  ImageAttribute({this.url});
+  factory ImageAttribute.fomjson(Map<String, dynamic> json) =>
+      ImageAttribute(url: json['url']);
 }
-// class Images {
-//   ImagesData? data; 
-//   Images({this.data});
-//   factory Images.fromJson(Map<String, dynamic> json) => Images(data: json['data']);
-// }
-
-// class ImagesData {
-//   int? id;
-//   ImageAttributes? attributes;
-//   ImagesData({this.id, this.attributes});
-//   factory ImagesData.fromjson(Map<String, dynamic> json) =>
-//       ImagesData(id: json['id'], attributes: ImageAttributes.fomjson(json['attributes']));
-// }
-
-// class ImageAttributes {
-//   String? name;
-//   dynamic alternativeText;
-//   Formats? formats;
-//   double? size;
-//   String? url;
-//   ImageAttributes(
-//       {this.name, this.alternativeText, this.formats, this.size, this.url});
-//   factory ImageAttributes.fomjson(Map<String, dynamic> json) => ImageAttributes(
-//       name: json['name'],
-//       alternativeText: json['alternativeText'],
-//       formats: json['formats'],
-//       size: json['size'],
-//       url: json['url']);
-// }
-
-// class Formats {
-//   Size? large;
-//   Formats({this.large});
-//   factory Formats.fromjson(Map<String, dynamic> json) => Formats(
-//         large: json['large'],
-//       );
-// }
-
-// class Size {
-//   String? name;
-//   int? width;
-//   int? height;
-//   String? url;
-//   Size({this.name, this.width, this.height, this.url});
-//   factory Size.fromjson(Map<String, dynamic> json) => Size(
-//         name: json['name'],
-//         height: json['height'],
-//         width: json['width'],
-//         url: json['url'],
-//       );
-// }

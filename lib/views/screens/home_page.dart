@@ -22,7 +22,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
-  final List<String> textlist = ['Home', 'Apartment', 'Vila', 'Hostel', 'Shop'];
   final List<String> imageList = [
     'lib/assets/home1.jpeg',
     'lib/assets/home1.jpeg',
@@ -68,32 +67,36 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  CarouselSlider _buildSlider() {
-    return CarouselSlider.builder(
-      itemCount: 4,
-      options: CarouselOptions(
-        height: 200,
-        aspectRatio: 16 / 9,
-        viewportFraction: 0.8,
-        initialPage: 0,
-        enableInfiniteScroll: true,
-        reverse: false,
-        autoPlay: true,
-        autoPlayInterval: Duration(seconds: 3),
-        autoPlayAnimationDuration: Duration(milliseconds: 800),
-        autoPlayCurve: Curves.fastOutSlowIn,
-        enlargeCenterPage: true,
-        enlargeFactor: 0.3,
-        scrollDirection: Axis.horizontal,
+  Widget _buildSlider() {
+    return Obx(() => 
+       CarouselSlider.builder(
+        itemCount: nearestHoueController.images.length,
+        options: CarouselOptions(
+          height: 200,
+          aspectRatio: 16 / 9,
+          viewportFraction: 0.8,
+          initialPage: 0,
+          enableInfiniteScroll: true,
+          reverse: false,
+          autoPlay: true,
+          autoPlayInterval: const Duration(seconds: 3),
+          autoPlayAnimationDuration: const Duration(milliseconds: 800),
+          autoPlayCurve: Curves.fastOutSlowIn,
+          enlargeCenterPage: true,
+          enlargeFactor: 0.3,
+          scrollDirection: Axis.horizontal,
+        ),
+        itemBuilder: (context, index, realIndex) {
+          return Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Colors.amber, borderRadius: BorderRadius.circular(20)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(nearestHoueController.images[index],fit: BoxFit.cover,)),
+          );
+        },
       ),
-      itemBuilder: (context, index, realIndex) {
-        return Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              color: Colors.amber, borderRadius: BorderRadius.circular(20)),
-          child: Center(child: Text(index.toString())),
-        );
-      },
     );
   }
 
