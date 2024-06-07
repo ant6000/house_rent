@@ -175,7 +175,7 @@ class DetailsPage extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 12.sp, fontWeight: FontWeight.w400)),
                     SizedBox(height: 5.h),
-                    Text('${houseModel.attributes!.price} Tk / Mo',
+                    Text('${houseModel.attributes!.price}Tk / Mo',
                         style: TextStyle(
                             fontSize: 17.sp, fontWeight: FontWeight.w500)),
                   ],

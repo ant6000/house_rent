@@ -4,13 +4,14 @@ import 'package:get/get.dart';
 import 'package:house_rent/controller/baner_controller.dart';
 import 'package:house_rent/controller/best_for_you_controller.dart';
 import 'package:house_rent/controller/category_controller.dart';
-import 'package:house_rent/controller/nearest_houe_controller.dart';
+import 'package:house_rent/controller/nearest_house_controller.dart';
 import 'package:house_rent/data/model/custom_model.dart';
 import 'package:house_rent/views/screens/details_page.dart';
 import 'package:house_rent/views/screens/see_more.dart';
 import 'package:house_rent/views/widgets/catagory_button.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
 import 'package:parallax_cards/parallax_cards.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,17 +53,49 @@ class _HomePageState extends State<HomePage>
           SizedBox(height: 10.h),
           _buildSectionTitle('Near From you', 'See more', 'grid'),
           SizedBox(height: 10.h),
-          _buildHorizontaList(nearestHoueController.images,nearestHoueController.houseList),
+          _buildHorizontaList(
+              nearestHoueController.images, nearestHoueController.houseList),
           SizedBox(height: 10.h),
           _buildSectionTitle('Best for you', 'See more', 'list'),
           SizedBox(height: 10.h),
           _buildVerticleList(best4uController),
+          SizedBox(height: 10.h),
+          _buildSlider(),
+          SizedBox(height: 10.h),
           _buildBannerList(bannerController)
         ],
       ),
     );
   }
 
+  CarouselSlider _buildSlider() {
+    return CarouselSlider.builder(
+      itemCount: 4,
+      options: CarouselOptions(
+        height: 200,
+        aspectRatio: 16 / 9,
+        viewportFraction: 0.8,
+        initialPage: 0,
+        enableInfiniteScroll: true,
+        reverse: false,
+        autoPlay: true,
+        autoPlayInterval: Duration(seconds: 3),
+        autoPlayAnimationDuration: Duration(milliseconds: 800),
+        autoPlayCurve: Curves.fastOutSlowIn,
+        enlargeCenterPage: true,
+        enlargeFactor: 0.3,
+        scrollDirection: Axis.horizontal,
+      ),
+      itemBuilder: (context, index, realIndex) {
+        return Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: Colors.amber, borderRadius: BorderRadius.circular(20)),
+          child: Center(child: Text(index.toString())),
+        );
+      },
+    );
+  }
 
   Row _buildSearchField() {
     return Row(
@@ -130,7 +163,8 @@ Row _buildSectionTitle(String title, String str, String type) {
   );
 }
 
-Widget _buildHorizontaList(List<String> imageList, RxList<CustomModel>houselist) {
+Widget _buildHorizontaList(
+    List<String> imageList, RxList<CustomModel> houselist) {
   return Obx(
     () => houselist.isEmpty
         ? const CircularProgressIndicator()
@@ -143,7 +177,7 @@ Widget _buildHorizontaList(List<String> imageList, RxList<CustomModel>houselist)
                 imagesList: imageList,
                 scrollDirection: Axis.horizontal,
                 onTap: (index) {
-                  Get.to(()=>DetailsPage(houseModel:houselist[index]));
+                  Get.to(() => DetailsPage(houseModel: houselist[index]));
                 },
                 overlays: [
                   for (var title in houselist)
@@ -169,8 +203,8 @@ Widget _buildHorizontaList(List<String> imageList, RxList<CustomModel>houselist)
 }
 
 Widget _buildVerticleList(BestForYouController b4uController) {
-  return Obx(() => 
-     ListView.builder(
+  return Obx(
+    () => ListView.builder(
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 10),
@@ -186,30 +220,32 @@ Widget _buildVerticleList(BestForYouController b4uController) {
 }
 
 Obx _buildBannerList(BanerController bannerController) {
-    return Obx(
-          () {
-            return ListView.builder(
-              itemCount: bannerController.bannerList.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              physics:const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
-                      borderRadius: BorderRadius.circular(10)
-                    ),
-                    width: double.infinity,
-                    height: 200,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
-                      child: Image.network(bannerController.bannerList[index],fit: BoxFit.cover,),),
-                  ),
-                );
-              },
-            );
-          },
-        );
-  }
+  return Obx(
+    () {
+      return ListView.builder(
+        itemCount: bannerController.bannerList.length,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.amber, borderRadius: BorderRadius.circular(10)),
+              width: double.infinity,
+              height: 200,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                child: Image.network(
+                  bannerController.bannerList[index],
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    },
+  );
+}

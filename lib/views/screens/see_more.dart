@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:house_rent/controller/best_for_you_controller.dart';
+import 'package:house_rent/controller/nearest_house_controller.dart';
+import 'package:house_rent/core/constant/const.dart';
+import 'package:house_rent/views/screens/home_page.dart';
 import 'package:house_rent/views/widgets/house_card_big.dart';
 import 'package:house_rent/views/widgets/house_card_small.dart';
 
 class SeeMorePage extends StatelessWidget {
   final String type;
   SeeMorePage({super.key, required this.type});
+  final nearestController = Get.find<NearestHoueController>();
   final best4uController = Get.find<BestForYouController>();
   final List<String> imageList = [
     'lib/assets/home1.jpeg',
@@ -23,12 +28,34 @@ class SeeMorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: SizedBox(
+                height: 50,
+                child: TextField(
+                  decoration: InputDecoration(
+                      filled: true,
+                      prefixIcon: Image.asset('lib/assets/IC_Search.png'),
+                      border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(20)),
+                      hintText: 'Search Address or near you'),
+                ),
+              ),
+            ),
+            SizedBox(width: 5.w),
+            Image.asset('lib/assets/filter_icon.png')
+          ],
+        ),
+      ),
       body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
           child: type == 'grid'
               ? GridView.builder(
-                  itemCount: 10,
+                  itemCount: nearestController.houseList.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -37,7 +64,9 @@ class SeeMorePage extends StatelessWidget {
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 6),
                   itemBuilder: (context, index) {
-                    return const HouseCardBig();
+                    return HouseCardBig(
+                      houseModel: nearestController.houseList[index],
+                    );
                   },
                 )
               : ListView.builder(
