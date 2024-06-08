@@ -1,4 +1,3 @@
-
 class CustomModel {
   int? id;
   Attributes? attributes;
@@ -14,6 +13,7 @@ class CustomModel {
 
 class Attributes {
   String? houseTitle;
+  List<Description>? description;
   int? ownerPhone;
   String? location;
   int? price;
@@ -24,6 +24,7 @@ class Attributes {
   Images? images;
   Attributes(
       {this.houseTitle,
+      this.description,
       this.ownerPhone,
       this.ownerName,
       this.bath,
@@ -34,6 +35,8 @@ class Attributes {
       this.images});
   factory Attributes.fromJson(Map<String, dynamic> json) => Attributes(
       houseTitle: json['HouseTitle'],
+      description: List<Description>.from(
+            json["Description"].map((x) => Description.fromJson(x))),
       ownerPhone: json['OwnerPhone'],
       ownerName: json['OwnerName'],
       location: json['Location'],
@@ -43,7 +46,6 @@ class Attributes {
       kitchen: json['Kitchen'],
       images: Images.fromJson(json['Images']));
 }
-
 
 class Images {
   List<ImagesData>? data;
@@ -66,4 +68,31 @@ class ImageAttribute {
   ImageAttribute({this.url});
   factory ImageAttribute.fomjson(Map<String, dynamic> json) =>
       ImageAttribute(url: json['url']);
+}
+
+class Description {
+  List<Child> children;
+
+  Description({
+    required this.children,
+  });
+
+  factory Description.fromJson(Map<String, dynamic> json) => Description(
+        children:
+            List<Child>.from(json["children"].map((x) => Child.fromJson(x))),
+      );
+}
+
+class Child {
+  String type;
+  String text;
+  Child({
+    required this.type,
+    required this.text,
+  });
+
+  factory Child.fromJson(Map<String, dynamic> json) => Child(
+        type: json["type"],
+        text: json["text"],
+      );
 }

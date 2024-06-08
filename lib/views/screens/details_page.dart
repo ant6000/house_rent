@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:house_rent/data/model/custom_model.dart';
+import 'package:house_rent/views/widgets/image_gallery.dart';
 import 'package:house_rent/views/widgets/owner_contact.dart';
 
 class DetailsPage extends StatelessWidget {
@@ -10,10 +11,6 @@ class DetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-      houseModel.attributes?.images?.data?[0].attributes?.url
-                              .toString(),
-    );
     return Scaffold(
         body: SafeArea(
       child: Padding(
@@ -111,55 +108,44 @@ class DetailsPage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Text(
-                'The 3 level house that has a modern design, has a large pool and a garage that fits up to four cars... Show More',
+            Text(houseModel.attributes?.description?[0].children[0].text??'',
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)),
             SizedBox(
               height: 10.h,
             ),
-            const OwnerContact(),
+            OwnerContact(houseModel: houseModel,),
             SizedBox(
               height: 20.h,
             ),
             Text('Gallery',
                 style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500)),
             SizedBox(height: 10.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: Image.asset(
-                      'lib/assets/home3.jpeg',
-                      width: 80.w,
-                      height: 80.h,
-                      fit: BoxFit.cover,
-                    )),
-                ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: Image.asset(
-                      'lib/assets/home3.jpeg',
-                      width: 80.w,
-                      height: 80.h,
-                      fit: BoxFit.cover,
-                    )),
-                ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: Image.asset(
-                      'lib/assets/home3.jpeg',
-                      width: 80.w,
-                      height: 80.h,
-                      fit: BoxFit.cover,
-                    )),
-                ClipRRect(
-                    borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    child: Image.asset(
-                      'lib/assets/home3.jpeg',
-                      width: 80.w,
-                      height: 80.h,
-                      fit: BoxFit.cover,
-                    )),
-              ],
+                        SizedBox(height: 10.h),
+            SizedBox(
+              height: 100.h,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: houseModel.attributes?.images?.data?.length ?? 0,
+                itemBuilder: (context, index) {
+                  final imageUrl = 'http://192.168.185.124:1337${houseModel.attributes?.images?.data?[index].attributes?.url}';
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => GalleryPage(houseModel: houseModel, initialIndex: index));
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(Radius.circular(20)),
+                        child: Image.network(
+                          imageUrl,
+                          width: 100.w,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
             SizedBox(height: 10.h),
             ClipRRect(
