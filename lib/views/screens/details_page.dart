@@ -1,14 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:house_rent/data/model/custom_model.dart';
 import 'package:house_rent/views/widgets/image_gallery.dart';
 import 'package:house_rent/views/widgets/owner_contact.dart';
 
 class DetailsPage extends StatelessWidget {
   final CustomModel houseModel;
-  const DetailsPage({required this.houseModel, super.key});
+  DetailsPage({required this.houseModel, super.key});
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
+  static const CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14.4746,
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +30,8 @@ class DetailsPage extends StatelessWidget {
               children: [
                 ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.network('http://192.168.185.124:1337${houseModel.attributes?.images?.data?[0].attributes?.url}',
+                    child: Image.network(
+                      'http://192.168.185.124:1337${houseModel.attributes?.images?.data?[0].attributes?.url}',
                       height: 340.h,
                       width: 360.w,
                       fit: BoxFit.cover,
@@ -108,34 +118,39 @@ class DetailsPage extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Text(houseModel.attributes?.description?[0].children[0].text??'',
+            Text(houseModel.attributes?.description?[0].children[0].text ?? '',
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)),
             SizedBox(
               height: 10.h,
             ),
-            OwnerContact(houseModel: houseModel,),
+            OwnerContact(
+              houseModel: houseModel,
+            ),
             SizedBox(
               height: 20.h,
             ),
             Text('Gallery',
                 style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500)),
             SizedBox(height: 10.h),
-                        SizedBox(height: 10.h),
+            SizedBox(height: 10.h),
             SizedBox(
               height: 100.h,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: houseModel.attributes?.images?.data?.length ?? 0,
                 itemBuilder: (context, index) {
-                  final imageUrl = 'http://192.168.185.124:1337${houseModel.attributes?.images?.data?[index].attributes?.url}';
+                  final imageUrl =
+                      'http://192.168.185.124:1337${houseModel.attributes?.images?.data?[index].attributes?.url}';
                   return GestureDetector(
                     onTap: () {
-                      Get.to(() => GalleryPage(houseModel: houseModel, initialIndex: index));
+                      Get.to(() => GalleryPage(
+                          houseModel: houseModel, initialIndex: index));
                     },
                     child: Padding(
                       padding: const EdgeInsets.only(right: 10),
                       child: ClipRRect(
-                        borderRadius: const BorderRadius.all(Radius.circular(20)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
                         child: Image.network(
                           imageUrl,
                           width: 100.w,
@@ -149,12 +164,19 @@ class DetailsPage extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              child: Image.asset(
-                'lib/assets/Map.png',
-                fit: BoxFit.cover,
-              ),
-            ),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                child: Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.amber
+                    ),
+                    child: GoogleMap(
+                      initialCameraPosition: _kGooglePlex,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                    ))),
             SizedBox(height: 5.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
