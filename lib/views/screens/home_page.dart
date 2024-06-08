@@ -50,26 +50,30 @@ class _HomePageState extends State<HomePage>
           SizedBox(height: 10.h),
           _buildCategoryButtton(),
           SizedBox(height: 10.h),
-          _buildSectionTitle('Near From you', 'See more', 'grid'),
+          _buildSectionTitle('Near From you','grid',str: 'See more', ),
           SizedBox(height: 10.h),
           _buildHorizontaList(
               nearestHoueController.images, nearestHoueController.houseList),
           SizedBox(height: 10.h),
-          _buildSectionTitle('Best for you', 'See more', 'list'),
+          _buildSectionTitle('Best for you','list', str: 'See more' ),
           SizedBox(height: 10.h),
           _buildVerticleList(best4uController),
           SizedBox(height: 10.h),
-          _buildSlider(),
+          _buildSectionTitle('Villa you may like','list',),
           SizedBox(height: 10.h),
-          _buildBannerList(bannerController)
+          _buildSlider(),
+          // SizedBox(height: 10.h),
+          // _buildSectionTitle('you may like', 'list',),
+          // SizedBox(height: 10.h),
+          // _buildBannerList(bannerController),
         ],
       ),
     );
   }
 
   Widget _buildSlider() {
-    return Obx(() => 
-       CarouselSlider.builder(
+    return Obx(
+      () => CarouselSlider.builder(
         itemCount: nearestHoueController.images.length,
         options: CarouselOptions(
           height: 200,
@@ -87,13 +91,22 @@ class _HomePageState extends State<HomePage>
           scrollDirection: Axis.horizontal,
         ),
         itemBuilder: (context, index, realIndex) {
-          return Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: Colors.amber, borderRadius: BorderRadius.circular(20)),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(nearestHoueController.images[index],fit: BoxFit.cover,)),
+          return GestureDetector(
+            onTap: () {
+              Get.to(() => DetailsPage(
+                  houseModel: nearestHoueController.houseList[index]));
+            },
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.amber, borderRadius: BorderRadius.circular(20)),
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    nearestHoueController.images[index],
+                    fit: BoxFit.cover,
+                  )),
+            ),
           );
         },
       ),
@@ -145,7 +158,7 @@ class _HomePageState extends State<HomePage>
   }
 }
 
-Row _buildSectionTitle(String title, String str, String type) {
+Row _buildSectionTitle(String title, String type,{String str=''}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
@@ -158,7 +171,7 @@ Row _buildSectionTitle(String title, String str, String type) {
           Get.to(() => SeeMorePage(type: type));
         },
         child: Text(
-          str,
+          str!,
           style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
         ),
       ),
@@ -233,16 +246,21 @@ Obx _buildBannerList(BanerController bannerController) {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.amber, borderRadius: BorderRadius.circular(10)),
-              width: double.infinity,
-              height: 200,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                child: Image.network(
-                  bannerController.bannerList[index],
-                  fit: BoxFit.cover,
+            child: GestureDetector(
+              onTap: () {
+                //Get.to(DetailsPage(houseModel: ));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.amber, borderRadius: BorderRadius.circular(10)),
+                width: double.infinity,
+                height: 200,
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: Image.network(
+                    bannerController.bannerList[index],
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

@@ -115,20 +115,14 @@ class DetailsPage extends StatelessWidget {
             SizedBox(height: 10.h),
             Text('Description',
                 style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500)),
-            SizedBox(
-              height: 10.h,
-            ),
+            SizedBox(height: 10.h),
             Text(houseModel.attributes?.description?[0].children[0].text ?? '',
                 style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500)),
-            SizedBox(
-              height: 10.h,
-            ),
+            SizedBox(height: 10.h),
             OwnerContact(
               houseModel: houseModel,
             ),
-            SizedBox(
-              height: 20.h,
-            ),
+            SizedBox(height: 20.h),
             Text('Gallery',
                 style: TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500)),
             SizedBox(height: 10.h),
@@ -168,11 +162,12 @@ class DetailsPage extends StatelessWidget {
                 child: Container(
                     height: 200,
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.amber
-                    ),
+                    decoration: const BoxDecoration(color: Colors.amber),
                     child: GoogleMap(
                       initialCameraPosition: _kGooglePlex,
+                       zoomGesturesEnabled: true,
+                       zoomControlsEnabled: true,
+                       scrollGesturesEnabled: true,
                       onMapCreated: (GoogleMapController controller) {
                         _controller.complete(controller);
                       },

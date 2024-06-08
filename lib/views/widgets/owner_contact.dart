@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:house_rent/data/model/custom_model.dart';
+import 'package:house_rent/helper/url_launcer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OwnerContact extends StatelessWidget {
   final CustomModel houseModel;
@@ -39,11 +42,24 @@ class OwnerContact extends StatelessWidget {
         ),
         Row(
           children: [
-            Image.asset('lib/assets/IC_Phone.png'),
+            GestureDetector(
+                onTap: () async {
+                  final Uri url = Uri.parse('tel:${houseModel.attributes?.ownerPhone}');
+                  await launchUrl(url,);
+                },
+                child: Image.asset('lib/assets/IC_Phone.png')),
             SizedBox(
               width: 10.w,
             ),
-            Image.asset('lib/assets/IC_Message.png'),
+            GestureDetector(
+                onTap: () => Fluttertoast.showToast(
+                    msg: "Comming Soon",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    backgroundColor: Colors.blue,
+                    textColor: Colors.white,
+                    fontSize: 16.0),
+                child: Image.asset('lib/assets/IC_Message.png')),
           ],
         )
       ],

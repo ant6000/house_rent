@@ -20,7 +20,7 @@ class HouseCardBig extends StatelessWidget {
         child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Stack(fit: StackFit.expand, children: [
-              Image.asset('lib/assets/home1.jpeg', fit: BoxFit.cover),
+              Image.network('http://192.168.185.124:1337${houseModel.attributes?.images?.data?[0].attributes?.url}', fit: BoxFit.cover),
               Positioned(
                   bottom: 5,
                   left: 5,
